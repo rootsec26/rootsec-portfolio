@@ -1,0 +1,656 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #000000;
+  --color-void-deep: #000000;
+  --color-surface: #050505;
+  --color-glass: rgba(5, 5, 5, 0.8);
+  --color-glass-border: rgba(255, 255, 255, 0.06);
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted: #5a5a5a;
+  --color-accent: #34d399;
+  --color-accent-glow: rgba(52, 211, 153, 0.3);
+  --color-emerald: #34d399;
+  --color-emerald-glow: rgba(52, 211, 153, 0.4);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #000000;
+  color: #f0f0f0;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.25);
+  color: #fff;
+}
+
+/* ─── Ambient Glow Blobs ─── */
+.glow-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(160px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+@keyframes ambient-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-15px, 15px) scale(0.97); }
+  75% { transform: translate(20px, 10px) scale(1.03); }
+}
+.ambient-float {
+  animation: ambient-float 20s ease-in-out infinite;
+}
+.ambient-float-delayed {
+  animation: ambient-float 25s ease-in-out infinite;
+  animation-delay: -8s;
+}
+.ambient-float-slow {
+  animation: ambient-float 30s ease-in-out infinite;
+  animation-delay: -15s;
+}
+
+/* ─── Glass Card — Obsidian Surface ─── */
+.glass-card {
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: blur(32px) saturate(100%);
+  -webkit-backdrop-filter: blur(32px) saturate(100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+  transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card:hover {
+  border-color: rgba(52, 211, 153, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.08),
+    0 24px 80px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* ─── Subtle Grid Background ─── */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ─── Badge Pill — Ultra-Refined Micro-Pills ─── */
+.badge-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+/* ─── Section Divider Glow Line ─── */
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.4), rgba(255, 255, 255, 0.12), transparent);
+}
+
+/* ─── Traffic Light Dots ─── */
+.traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+/* ─── Live Status Double-Ping ─── */
+@keyframes live-ping-1 {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+@keyframes live-ping-2 {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.live-dot-ping-1 {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+  animation: live-ping-1 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.live-dot-ping-2 {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+  animation: live-ping-2 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation-delay: 0.6s;
+}
+
+/* ─── Shimmer Sweep for Buttons ─── */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  transition: none;
+}
+.btn-shimmer:hover::after {
+  animation: shimmer-sweep 0.7s ease-out forwards;
+}
+
+/* ─── Glow Text ─── */
+.glow-text {
+  text-shadow: 0 0 40px rgba(52, 211, 153, 0.12);
+}
+
+/* ─── Hero Section ─── */
+.hero-glow-text {
+  text-shadow:
+    0 0 40px rgba(52, 211, 153, 0.1),
+    0 0 80px rgba(52, 211, 153, 0.05);
+}
+
+.hero-glass-badge {
+  background: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+.hero-glass-badge:hover {
+  border-color: rgba(52, 211, 153, 0.25);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.08);
+  color: #f0f0f0;
+}
+
+/* ─── Project Card Hover Glow Beam ─── */
+.project-card-glow {
+  position: relative;
+}
+.project-card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 40%, rgba(52, 211, 153, 0.1) 50%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  filter: blur(24px);
+}
+.project-card-glow:hover::before {
+  opacity: 1;
+}
+
+/* ─── Tech Card — Obsidian Glassmorphism ─── */
+.tech-card {
+  transition: transform 0.4s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+.tech-card-glow {
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* ─── Tech Badge — Glowing Category Label ─── */
+.tech-badge-glow {
+  transition: all 0.3s ease;
+}
+.tech-badge-glow:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(20, 184, 166, 0.3);
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.08);
+}
+
+/* ─── Tech Section Ambient Drift ─── */
+@keyframes tech-glow-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(20px, -15px) scale(1.08); opacity: 0.8; }
+  66% { transform: translate(-10px, 10px) scale(0.95); opacity: 0.5; }
+}
+.tech-section-glow {
+  animation: tech-glow-drift 18s ease-in-out infinite;
+}
+
+/* ─── Tech Pill Base ─── */
+.tech-pill {
+  backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+/* ─── Contact Card — Obsidian Luxury ─── */
+.contact-card {
+  transition: transform 0.5s cubic-bezier(0.25, 0.4, 0.25, 1),
+              box-shadow 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+.contact-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.06),
+    0 32px 100px -20px rgba(0, 0, 0, 0.7),
+    0 0 60px -10px rgba(52, 211, 153, 0.04);
+}
+
+/* ─── 3D Tilt Card — Obsidian Perspective ─── */
+.tilt-card-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  mix-blend-mode: overlay;
+}
+
+.group:hover .tilt-card-glare {
+  opacity: 1;
+}
+
+.tilt-depth-1 {
+  transform: translateZ(10px);
+}
+.tilt-depth-2 {
+  transform: translateZ(20px);
+}
+.tilt-depth-3 {
+  transform: translateZ(30px);
+}
+.tilt-depth-4 {
+  transform: translateZ(40px);
+}
+
+/* ─── Hero Profile Badge ─── */
+.hero-profile-badge {
+  transition: all 0.3s ease;
+}
+.hero-profile-badge:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(52, 211, 153, 0.25);
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.08);
+}
+
+/* ─── Terminal / Hacker Mode ─── */
+.terminal-window {
+  background: #0d1117;
+  border: 1px solid rgba(0, 255, 102, 0.12);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 102, 0.05),
+    0 0 60px rgba(0, 255, 102, 0.06),
+    0 32px 120px -20px rgba(0, 0, 0, 0.9);
+}
+
+.terminal-body {
+  background: #0d1117;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 255, 102, 0.15) transparent;
+}
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 102, 0.15);
+  border-radius: 3px;
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 102, 0.3);
+}
+
+.terminal-line {
+  color: #b0b0b0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 1.25em;
+}
+
+.terminal-input {
+  caret-color: #00ff66;
+}
+.terminal-input::selection {
+  background: rgba(0, 255, 102, 0.2);
+  color: #fff;
+}
+
+/* Blinking cursor fallback */
+@keyframes terminal-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-link {
+  color: #00ff66;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 255, 102, 0.3);
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+.terminal-link:hover {
+  color: #39ff14;
+  text-decoration-color: #39ff14;
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+}
+
+/* ─── Floating Header Nav ─── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.terminal-toggle-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.04);
+  border: 1px solid rgba(0, 255, 102, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.4, 0.25, 1);
+  overflow: hidden;
+}
+.terminal-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.06), transparent);
+  transform: translateX(-100%);
+  transition: none;
+}
+.terminal-toggle-btn:hover {
+  background: rgba(0, 255, 102, 0.08);
+  border-color: rgba(0, 255, 102, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.08);
+  color: #39ff14;
+}
+.terminal-toggle-btn:hover::before {
+  animation: shimmer-sweep 0.7s ease-out forwards;
+}
+.terminal-toggle-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Tech Stack Graph ─── */
+.graph-canvas {
+  background: transparent !important;
+}
+
+/* React Flow Controls dark theme */
+.graph-controls {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden;
+}
+.graph-controls button {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  color: #64748b !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+.graph-controls button:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important;
+}
+.graph-controls button:last-child {
+  border-bottom: none !important;
+}
+.graph-controls button svg {
+  fill: none !important;
+}
+
+/* Graph Handle (connection points) */
+.graph-handle {
+  width: 6px !important;
+  height: 6px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.graph-node-highlighted .graph-handle {
+  opacity: 1;
+}
+
+/* Root Node */
+.graph-root-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  background: radial-gradient(circle at center, rgba(0, 255, 102, 0.08) 0%, rgba(15, 23, 42, 0.95) 70%);
+  border: 1.5px solid rgba(0, 255, 102, 0.3);
+  border-radius: 14px;
+  box-shadow:
+    0 0 30px rgba(0, 255, 102, 0.1),
+    0 0 60px rgba(0, 255, 102, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.graph-root-node:hover {
+  border-color: rgba(0, 255, 102, 0.5);
+  box-shadow:
+    0 0 40px rgba(0, 255, 102, 0.15),
+    0 0 80px rgba(0, 255, 102, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Category Node */
+.graph-category-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.graph-category-node:hover {
+  transform: scale(1.05);
+}
+
+/* Skill Node */
+.graph-skill-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+.graph-skill-node:hover {
+  transform: scale(1.08);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Project Node */
+.graph-project-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1.5px solid rgba(251, 191, 36, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.06);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.graph-project-node:hover {
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow:
+    0 0 30px rgba(251, 191, 36, 0.1),
+    0 0 60px rgba(251, 191, 36, 0.05);
+  transform: scale(1.06);
+}
+
+/* Highlighted / Dimmed states */
+.graph-node-highlighted {
+  z-index: 10 !important;
+}
+.graph-node-dimmed {
+  pointer-events: none;
+}
+
+/* React Flow edge animations */
+.react-flow__edge-path {
+  transition: opacity 0.3s ease, stroke-width 0.3s ease;
+}
+
+/* Selection box */
+.react-flow__selection {
+  background: rgba(0, 255, 102, 0.03) !important;
+  border: 1px dashed rgba(0, 255, 102, 0.2) !important;
+}
+
+/* Minimap override */
+.react-flow__minimap {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 8px !important;
+}
+
+/* ─── Border Beam Animation ─── */
+@keyframes border-beam-rotate {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.border-beam::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: var(--beam-size, 200px);
+  height: var(--beam-size, 200px);
+  background: conic-gradient(
+    from var(--beam-angle, 0deg),
+    transparent 0deg,
+    var(--beam-color, rgba(52, 211, 153, 0.6)) 60deg,
+    transparent 120deg
+  );
+  animation: border-beam-spin var(--beam-duration, 3s) linear infinite;
+  filter: blur(1px);
+  opacity: 0;
+}
+
+.group:hover .border-beam,
+.border-beam:hover {
+  opacity: 1;
+}
+
+.group:hover .border-beam::before,
+.border-beam:hover::before {
+  opacity: 1;
+}
+
+@keyframes border-beam-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Spotlight Grid Enhancement ─── */
+.grid-spotlight {
+  position: relative;
+}
+
+.grid-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 1;
+}
