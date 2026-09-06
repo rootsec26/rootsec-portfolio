@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/react";
+import LocalStats from "@/components/LocalStats";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,7 +26,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-void text-text-primary min-h-screen font-[Inter,sans-serif] antialiased">{children}</body>
+      <body className="bg-void text-text-primary min-h-screen font-[Inter,sans-serif] antialiased">
+        {children}
+        <Analytics />
+        <LocalStats />
+      </body>
     </html>
   );
 }
