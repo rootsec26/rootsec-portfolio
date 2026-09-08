@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Hero3D from "@/components/Hero3D";
 import CyberBot from "@/components/CyberBot";
 import TerminalModal from "@/components/TerminalModal";
@@ -19,6 +19,8 @@ import {
   Globe,
   Braces,
   ArrowDown,
+  ChevronLeft,
+  ChevronRight,
   Send,
   GraduationCap,
 } from "lucide-react";
@@ -305,6 +307,27 @@ function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
 export default function PortfolioPage() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileCard, setMobileCard] = useState(0);
+  const mobileTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startMobileTimer = useCallback(() => {
+    if (mobileTimerRef.current) clearInterval(mobileTimerRef.current);
+    mobileTimerRef.current = setInterval(() => {
+      setMobileCard((prev) => (prev === 0 ? 1 : 0));
+    }, 3000);
+  }, []);
+
+  const stopMobileTimer = useCallback(() => {
+    if (mobileTimerRef.current) {
+      clearInterval(mobileTimerRef.current);
+      mobileTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    startMobileTimer();
+    return stopMobileTimer;
+  }, [startMobileTimer, stopMobileTimer]);
 
   const handleCopyEmail = useCallback(async () => {
     try {
@@ -610,177 +633,245 @@ export default function PortfolioPage() {
           </motion.div>
 
           {/* ─── Interactive Orbit Layout ─── */}
-          <div className="orbit-container relative z-10 w-full max-w-4xl mx-auto" style={{ height: "680px" }}>
+          <div className="orbit-container relative z-10 w-full max-w-4xl mx-auto mt-12" style={{ height: "640px" }}>
 
-            {/* SVG Connection Lines */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 800 680" fill="none" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="glow-line-1" x1="400" y1="300" x2="400" y2="60" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="glow-line-2" x1="400" y1="300" x2="660" y2="520" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="glow-line-3" x1="400" y1="300" x2="140" y2="520" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-                </linearGradient>
-                <filter id="line-glow">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Line to Frontend (top-center) */}
-              <line x1="400" y1="300" x2="400" y2="100" stroke="url(#glow-line-1)" strokeWidth="1.5" filter="url(#line-glow)" />
-              <line x1="400" y1="300" x2="400" y2="100" stroke="#14b8a6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
-              {/* Line to Backend (bottom-right) */}
-              <line x1="400" y1="300" x2="660" y2="480" stroke="url(#glow-line-2)" strokeWidth="1.5" filter="url(#line-glow)" />
-              <line x1="400" y1="300" x2="660" y2="480" stroke="#06b6d4" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
-              {/* Line to Tools (bottom-left) */}
-              <line x1="400" y1="300" x2="140" y2="480" stroke="url(#glow-line-3)" strokeWidth="1.5" filter="url(#line-glow)" />
-              <line x1="400" y1="300" x2="140" y2="480" stroke="#3b82f6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
-              {/* Node dots */}
-              <circle cx="400" cy="100" r="4" fill="#14b8a6" opacity="0.7">
-                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="660" cy="480" r="4" fill="#06b6d4" opacity="0.7">
-                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="1s" />
-              </circle>
-              <circle cx="140" cy="480" r="4" fill="#3b82f6" opacity="0.7">
-                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="2s" />
-              </circle>
-            </svg>
+            {/* ─── Mobile Interactive Card Switcher ─── */}
+            <div className="md:hidden w-full" style={{ height: "520px" }}>
+              <div className="relative w-full h-full">
+                {/* Mobile SVG */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 400 520" fill="none" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+                  <defs>
+                    <linearGradient id="ms1" x1="200" y1="240" x2="200" y2="80" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.6" />
+                      <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
+                    </linearGradient>
+                    <linearGradient id="ms2" x1="200" y1="240" x2="200" y2="420" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor={mobileCard === 0 ? "#06b6d4" : "#3b82f6"} stopOpacity="0.6" />
+                      <stop offset="100%" stopColor={mobileCard === 0 ? "#06b6d4" : "#3b82f6"} stopOpacity="0" />
+                    </linearGradient>
+                    <filter id="mglow2"><feGaussianBlur stdDeviation="2" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+                  </defs>
+                  <line x1="200" y1="240" x2="200" y2="100" stroke="url(#ms1)" strokeWidth="1.5" filter="url(#mglow2)" />
+                  <line x1="200" y1="240" x2="200" y2="100" stroke="#14b8a6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+                  <line x1="200" y1="240" x2="200" y2="400" stroke="url(#ms2)" strokeWidth="1.5" filter="url(#mglow2)" />
+                  <line x1="200" y1="240" x2="200" y2="400" stroke={mobileCard === 0 ? "#06b6d4" : "#3b82f6"} strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+                  <circle cx="200" cy="100" r="3" fill="#14b8a6" opacity="0.7"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" /></circle>
+                  <circle cx="200" cy="400" r="3" fill={mobileCard === 0 ? "#06b6d4" : "#3b82f6"} opacity="0.7"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" /></circle>
+                </svg>
 
-            {/* Center Core Engine */}
-            <motion.div
-              className="core-engine absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 z-20 w-52 h-52 md:w-60 md:h-60 rounded-full border border-teal-500/20 overflow-hidden"
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.2 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 rounded-full" />
-              <Image
-                src="/ai_csy123.png"
-                alt="AI Core Engine"
-                width={240}
-                height={240}
-                className="w-full h-full object-cover rounded-full"
-              />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-            </motion.div>
+                {/* Core Engine */}
+                <motion.div className="core-engine absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 z-20 w-36 h-36 rounded-full border border-teal-500/20 overflow-hidden" initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.2 }}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 rounded-full" />
+                  <Image src="/ai_csy123.png" alt="AI Core Engine" width={144} height={144} className="w-full h-full object-cover rounded-full" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+                </motion.div>
 
-            {/* ─── Frontend Card (Top-Center) ─── */}
-            <div className="absolute left-1/2 -translate-x-1/2 z-10 w-64 md:w-72" style={{ top: "20px" }}>
-              <motion.div
-                className="tech-orbit-card"
-                initial={{ opacity: 0, y: -30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, type: "spring", stiffness: 150, damping: 16 }}
-                whileHover={{ y: -6, scale: 1.03 }}
-              >
-                <div className="tech-card group relative rounded-2xl overflow-hidden">
-                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.2), transparent 60%)" }} />
-                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-teal-500/30 transition-colors duration-500">
-                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.35), transparent)" }} />
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.1), rgba(20,184,166,0.03))", color: "#14b8a6" }}>
-                        <Layout className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-base font-bold text-text-primary">Frontend</h3>
-                        <p className="text-[10px] text-text-muted">5 technologies</p>
+                {/* Frontend Card (Top) */}
+                <div className="absolute left-1/2 -translate-x-1/2 z-10 w-64" style={{ top: "8px" }}>
+                  <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, type: "spring", stiffness: 150, damping: 16 }}>
+                    <div className="tech-card group relative rounded-2xl overflow-hidden">
+                      <div className="relative bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-4">
+                        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.35), transparent)" }} />
+                        <div className="flex items-center gap-2.5 mb-3">
+                          <div className="w-8 h-8 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.1), rgba(20,184,166,0.03))", color: "#14b8a6" }}>
+                            <Layout className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <h3 className="text-sm font-bold text-text-primary">Frontend</h3>
+                            <p className="text-[9px] text-text-muted">5 technologies</p>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {TECH_STACK[0].items.map((item) => (
+                            <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2 py-0.5 text-[10px] font-medium text-slate-400">
+                              <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />{item}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {TECH_STACK[0].items.map((item) => (
-                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
-                          <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                          {item}
-                        </span>
-                      ))}
+                  </motion.div>
+                </div>
+
+                {/* Switchable Bottom Card */}
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 z-10 w-64"
+                  style={{ bottom: "30px" }}
+                  onMouseEnter={stopMobileTimer}
+                  onMouseLeave={startMobileTimer}
+                  onTouchStart={stopMobileTimer}
+                  onTouchEnd={startMobileTimer}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={mobileCard}
+                      initial={{ opacity: 0, x: mobileCard === 0 ? -30 : 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: mobileCard === 0 ? 30 : -30 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="tech-card group relative rounded-2xl overflow-hidden">
+                        <div className="relative bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-4">
+                          <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${mobileCard === 0 ? "rgba(6,182,212,0.35)" : "rgba(59,130,246,0.35)"}, transparent)` }} />
+                          <div className="flex items-center gap-2.5 mb-3">
+                            <div className="w-8 h-8 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${mobileCard === 0 ? "rgba(6,182,212,0.1)" : "rgba(59,130,246,0.1)"}, ${mobileCard === 0 ? "rgba(6,182,212,0.03)" : "rgba(59,130,246,0.03)"})`, color: mobileCard === 0 ? "#06b6d4" : "#3b82f6" }}>
+                              {mobileCard === 0 ? <Database className="w-4 h-4" /> : <Cloud className="w-4 h-4" />}
+                            </div>
+                            <div>
+                              <h3 className="text-sm font-bold text-text-primary">{mobileCard === 0 ? "Backend & BaaS" : "Tools"}</h3>
+                              <p className="text-[9px] text-text-muted">{mobileCard === 0 ? "4 technologies" : "3 technologies"}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {(mobileCard === 0 ? TECH_STACK[1].items : TECH_STACK[2].items).map((item) => (
+                              <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2 py-0.5 text-[10px] font-medium text-slate-400">
+                                <span className="w-1.5 h-1.5 rounded-full" style={{ background: mobileCard === 0 ? "#06b6d4" : "#3b82f6" }} />{item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Navigation */}
+                  <div className="flex items-center justify-center gap-4 mt-3">
+                    <button onClick={() => { setMobileCard(0); startMobileTimer(); }} className="p-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] transition-colors" aria-label="Previous">
+                      <ChevronLeft className="w-4 h-4 text-slate-400" />
+                    </button>
+                    <div className="flex gap-2">
+                      <button onClick={() => { setMobileCard(0); startMobileTimer(); }} className={`w-2 h-2 rounded-full transition-all duration-300 ${mobileCard === 0 ? "bg-cyan-400 w-5" : "bg-white/20"}`} aria-label="Backend" />
+                      <button onClick={() => { setMobileCard(1); startMobileTimer(); }} className={`w-2 h-2 rounded-full transition-all duration-300 ${mobileCard === 1 ? "bg-blue-400 w-5" : "bg-white/20"}`} aria-label="Tools" />
                     </div>
+                    <button onClick={() => { setMobileCard(1); startMobileTimer(); }} className="p-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] transition-colors" aria-label="Next">
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            {/* ─── Backend Card (Bottom-Right) ─── */}
-            <div className="absolute right-[2%] bottom-[40px] z-10 w-64 md:w-72">
-              <motion.div
-                className="tech-orbit-card"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.55, type: "spring", stiffness: 150, damping: 16 }}
-                whileHover={{ y: -6, scale: 1.03 }}
-              >
-                <div className="tech-card group relative rounded-2xl overflow-hidden">
-                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.2), transparent 60%)" }} />
-                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-cyan-500/30 transition-colors duration-500">
-                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.35), transparent)" }} />
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.1), rgba(6,182,212,0.03))", color: "#06b6d4" }}>
-                        <Database className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-base font-bold text-text-primary">Backend & BaaS</h3>
-                        <p className="text-[10px] text-text-muted">4 technologies</p>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {TECH_STACK[1].items.map((item) => (
-                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+            {/* Desktop Orbit (hidden on mobile, rendered inside scale wrapper above) */}
+            <div className="hidden md:block relative w-full h-full">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 800 640" fill="none" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="glow-line-1" x1="400" y1="310" x2="400" y2="175" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="glow-line-2" x1="400" y1="310" x2="640" y2="490" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="glow-line-3" x1="400" y1="310" x2="160" y2="490" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                  </linearGradient>
+                  <filter id="line-glow">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <line x1="400" y1="310" x2="400" y2="175" stroke="url(#glow-line-1)" strokeWidth="1.5" filter="url(#line-glow)" />
+                <line x1="400" y1="310" x2="400" y2="175" stroke="#14b8a6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+                <line x1="400" y1="310" x2="640" y2="490" stroke="url(#glow-line-2)" strokeWidth="1.5" filter="url(#line-glow)" />
+                <line x1="400" y1="310" x2="640" y2="490" stroke="#06b6d4" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+                <line x1="400" y1="310" x2="160" y2="490" stroke="url(#glow-line-3)" strokeWidth="1.5" filter="url(#line-glow)" />
+                <line x1="400" y1="310" x2="160" y2="490" stroke="#3b82f6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+                <circle cx="400" cy="175" r="4" fill="#14b8a6" opacity="0.7"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" /></circle>
+                <circle cx="640" cy="490" r="4" fill="#06b6d4" opacity="0.7"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="1s" /></circle>
+                <circle cx="160" cy="490" r="4" fill="#3b82f6" opacity="0.7"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="2s" /></circle>
+              </svg>
 
-            {/* ─── Tools Card (Bottom-Left) ─── */}
-            <div className="absolute left-[2%] bottom-[40px] z-10 w-64 md:w-72">
-              <motion.div
-                className="tech-orbit-card"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.7, type: "spring", stiffness: 150, damping: 16 }}
-                whileHover={{ y: -6, scale: 1.03 }}
-              >
-                <div className="tech-card group relative rounded-2xl overflow-hidden">
-                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.2), transparent 60%)" }} />
-                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-blue-500/30 transition-colors duration-500">
-                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.35), transparent)" }} />
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.03))", color: "#3b82f6" }}>
-                        <Cloud className="w-5 h-5" />
+              <motion.div className="core-engine absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 z-20 w-60 h-60 rounded-full border border-teal-500/20 overflow-hidden" initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.2 }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 rounded-full" />
+                <Image src="/ai_csy123.png" alt="AI Core Engine" width={240} height={240} className="w-full h-full object-cover rounded-full" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+              </motion.div>
+
+              {/* Desktop Frontend */}
+              <div className="absolute left-1/2 -translate-x-1/2 z-10 w-72" style={{ top: "0px" }}>
+                <motion.div className="tech-orbit-card" initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4, type: "spring", stiffness: 150, damping: 16 }} whileHover={{ y: -6, scale: 1.03 }}>
+                  <div className="tech-card group relative rounded-2xl overflow-hidden">
+                    <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.2), transparent 60%)" }} />
+                    <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-teal-500/30 transition-colors duration-500">
+                      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.35), transparent)" }} />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.1), rgba(20,184,166,0.03))", color: "#14b8a6" }}>
+                          <Layout className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h3 className="text-base font-bold text-text-primary">Frontend</h3>
+                          <p className="text-[10px] text-text-muted">5 technologies</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-base font-bold text-text-primary">Tools</h3>
-                        <p className="text-[10px] text-text-muted">3 technologies</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {TECH_STACK[0].items.map((item) => (
+                          <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />{item}
+                          </span>
+                        ))}
                       </div>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {TECH_STACK[2].items.map((item) => (
-                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                          {item}
-                        </span>
-                      ))}
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
+
+              {/* Desktop Backend */}
+              <div className="absolute right-[2%] bottom-[20px] z-10 w-72">
+                <motion.div className="tech-orbit-card" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.55, type: "spring", stiffness: 150, damping: 16 }} whileHover={{ y: -6, scale: 1.03 }}>
+                  <div className="tech-card group relative rounded-2xl overflow-hidden">
+                    <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.2), transparent 60%)" }} />
+                    <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-cyan-500/30 transition-colors duration-500">
+                      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.35), transparent)" }} />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.1), rgba(6,182,212,0.03))", color: "#06b6d4" }}>
+                          <Database className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h3 className="text-base font-bold text-text-primary">Backend & BaaS</h3>
+                          <p className="text-[10px] text-text-muted">4 technologies</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {TECH_STACK[1].items.map((item) => (
+                          <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />{item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Desktop Tools */}
+              <div className="absolute left-[2%] bottom-[20px] z-10 w-72">
+                <motion.div className="tech-orbit-card" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.7, type: "spring", stiffness: 150, damping: 16 }} whileHover={{ y: -6, scale: 1.03 }}>
+                  <div className="tech-card group relative rounded-2xl overflow-hidden">
+                    <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.2), transparent 60%)" }} />
+                    <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-blue-500/30 transition-colors duration-500">
+                      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.35), transparent)" }} />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.03))", color: "#3b82f6" }}>
+                          <Cloud className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h3 className="text-base font-bold text-text-primary">Tools</h3>
+                          <p className="text-[10px] text-text-muted">3 technologies</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {TECH_STACK[2].items.map((item) => (
+                          <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />{item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
