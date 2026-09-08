@@ -427,18 +427,8 @@ export default function PortfolioPage() {
               </span>
             </motion.h1>
 
-            {/* Arabic Name */}
-            <motion.p
-              className="text-lg md:text-xl text-neutral-500 font-medium mb-6 tracking-wide"
-              dir="rtl"
-              variants={fadeUp}
-              custom={1.5}
-            >
-              أشرف عمر
-            </motion.p>
-
             {/* University */}
-            <motion.div className="flex justify-center mb-4" variants={fadeUp} custom={2}>
+            <motion.div className="flex justify-center mb-6" variants={fadeUp} custom={2}>
               <div className="inline-flex items-center gap-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] px-5 py-2.5">
                 <GraduationCap className="w-4 h-4 text-teal-400/80 flex-shrink-0" />
                 <div className="text-left">
@@ -451,16 +441,6 @@ export default function PortfolioPage() {
                 </div>
               </div>
             </motion.div>
-
-            {/* Arabic University Subtext */}
-            <motion.p
-              className="text-[13px] text-neutral-600 mb-8"
-              dir="rtl"
-              variants={fadeUp}
-              custom={2.5}
-            >
-              طالب بكلية الحاسبات والذكاء الاصطناعي - جامعة أسيوط الأهلية
-            </motion.p>
 
             {/* Short Pitch */}
             <motion.p
@@ -629,106 +609,180 @@ export default function PortfolioPage() {
             </motion.p>
           </motion.div>
 
-          {/* Tech Cards Grid */}
-          <motion.div
-            className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {TECH_STACK.map((cat, i) => (
+          {/* ─── Interactive Orbit Layout ─── */}
+          <div className="orbit-container relative z-10 w-full max-w-4xl mx-auto" style={{ height: "680px" }}>
+
+            {/* SVG Connection Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 800 680" fill="none" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="glow-line-1" x1="400" y1="300" x2="400" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
+                </linearGradient>
+                <linearGradient id="glow-line-2" x1="400" y1="300" x2="660" y2="520" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+                </linearGradient>
+                <linearGradient id="glow-line-3" x1="400" y1="300" x2="140" y2="520" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                </linearGradient>
+                <filter id="line-glow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {/* Line to Frontend (top-center) */}
+              <line x1="400" y1="300" x2="400" y2="100" stroke="url(#glow-line-1)" strokeWidth="1.5" filter="url(#line-glow)" />
+              <line x1="400" y1="300" x2="400" y2="100" stroke="#14b8a6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+              {/* Line to Backend (bottom-right) */}
+              <line x1="400" y1="300" x2="660" y2="480" stroke="url(#glow-line-2)" strokeWidth="1.5" filter="url(#line-glow)" />
+              <line x1="400" y1="300" x2="660" y2="480" stroke="#06b6d4" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+              {/* Line to Tools (bottom-left) */}
+              <line x1="400" y1="300" x2="140" y2="480" stroke="url(#glow-line-3)" strokeWidth="1.5" filter="url(#line-glow)" />
+              <line x1="400" y1="300" x2="140" y2="480" stroke="#3b82f6" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+              {/* Node dots */}
+              <circle cx="400" cy="100" r="4" fill="#14b8a6" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="660" cy="480" r="4" fill="#06b6d4" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="1s" />
+              </circle>
+              <circle cx="140" cy="480" r="4" fill="#3b82f6" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="2s" />
+              </circle>
+            </svg>
+
+            {/* Center Core Engine */}
+            <motion.div
+              className="core-engine absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 z-20 w-52 h-52 md:w-60 md:h-60 rounded-full border border-teal-500/20 overflow-hidden"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.2 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 rounded-full" />
+              <Image
+                src="/ai_csy123.png"
+                alt="AI Core Engine"
+                width={240}
+                height={240}
+                className="w-full h-full object-cover rounded-full"
+              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+            </motion.div>
+
+            {/* ─── Frontend Card (Top-Center) ─── */}
+            <div className="absolute left-1/2 -translate-x-1/2 z-10 w-64 md:w-72" style={{ top: "20px" }}>
               <motion.div
-                key={cat.title}
-                className="tech-card group relative rounded-2xl overflow-hidden"
-                variants={fadeUp}
-                custom={i}
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                className="tech-orbit-card"
+                initial={{ opacity: 0, y: -30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, type: "spring", stiffness: 150, damping: 16 }}
+                whileHover={{ y: -6, scale: 1.03 }}
               >
-                {/* Card glow border on hover */}
-                <div
-                  className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `linear-gradient(135deg, ${cat.accent.color}0.2), transparent 60%)`,
-                  }}
-                />
-
-                {/* Card body */}
-                <div className="relative h-full bg-neutral-950/60 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 md:p-10 group-hover:border-white/[0.14] transition-colors duration-500">
-                  {/* Top accent gradient bar */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-px"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${cat.accent.color}0.35), transparent)`,
-                    }}
-                  />
-
-                  {/* Corner ambient glow */}
-                  <div
-                    className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    style={{ background: `${cat.accent.color}0.12)` }}
-                  />
-
-                  <div className="relative z-10">
-                    {/* Icon + Title */}
-                    <div className="flex items-center gap-3.5 mb-7">
-                      <motion.div
-                        className="w-11 h-11 rounded-xl border border-white/[0.06] flex items-center justify-center shadow-inner shadow-black/40"
-                        style={{
-                          background: `linear-gradient(135deg, ${cat.accent.color}0.1), ${cat.accent.color}0.03)`,
-                          color: cat.accent.dot,
-                        }}
-                        whileHover={{ scale: 1.12, rotate: -6 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      >
-                        <cat.icon className="w-5 h-5" />
-                      </motion.div>
+                <div className="tech-card group relative rounded-2xl overflow-hidden">
+                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.2), transparent 60%)" }} />
+                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-teal-500/30 transition-colors duration-500">
+                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.35), transparent)" }} />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.1), rgba(20,184,166,0.03))", color: "#14b8a6" }}>
+                        <Layout className="w-5 h-5" />
+                      </div>
                       <div>
-                        <h3 className="text-lg font-bold text-text-primary tracking-tight">
-                          {cat.title}
-                        </h3>
-                        <p className="text-[11px] text-text-muted mt-0.5">
-                          {cat.items.length} technologies
-                        </p>
+                        <h3 className="text-base font-bold text-text-primary">Frontend</h3>
+                        <p className="text-[10px] text-text-muted">5 technologies</p>
                       </div>
                     </div>
-
-                    {/* Tech Pills */}
-                    <motion.div
-                      className="flex flex-wrap gap-2"
-                      variants={staggerContainer}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    >
-                      {cat.items.map((item, j) => (
-                        <motion.span
-                          key={item}
-                          className="tech-pill inline-flex items-center gap-1.5 rounded-full bg-white/[0.03] border border-white/[0.07] px-3 py-1.5 text-[12px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors duration-300"
-                          variants={scaleIn}
-                          custom={j}
-                          whileHover={{
-                            scale: 1.05,
-                            borderColor: `${cat.accent.color}0.5)`,
-                            boxShadow: `0 0 14px ${cat.accent.color}0.1)`,
-                            color: "#ffffff",
-                          }}
-                          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                        >
-                          <span
-                            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                            style={{ background: cat.accent.dot, boxShadow: `0 0 6px ${cat.accent.color}0.4)` }}
-                          />
+                    <div className="flex flex-wrap gap-1.5">
+                      {TECH_STACK[0].items.map((item) => (
+                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
                           {item}
-                        </motion.span>
+                        </span>
                       ))}
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
+            </div>
+
+            {/* ─── Backend Card (Bottom-Right) ─── */}
+            <div className="absolute right-[2%] bottom-[40px] z-10 w-64 md:w-72">
+              <motion.div
+                className="tech-orbit-card"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.55, type: "spring", stiffness: 150, damping: 16 }}
+                whileHover={{ y: -6, scale: 1.03 }}
+              >
+                <div className="tech-card group relative rounded-2xl overflow-hidden">
+                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.2), transparent 60%)" }} />
+                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-cyan-500/30 transition-colors duration-500">
+                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.35), transparent)" }} />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.1), rgba(6,182,212,0.03))", color: "#06b6d4" }}>
+                        <Database className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-text-primary">Backend & BaaS</h3>
+                        <p className="text-[10px] text-text-muted">4 technologies</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {TECH_STACK[1].items.map((item) => (
+                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* ─── Tools Card (Bottom-Left) ─── */}
+            <div className="absolute left-[2%] bottom-[40px] z-10 w-64 md:w-72">
+              <motion.div
+                className="tech-orbit-card"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.7, type: "spring", stiffness: 150, damping: 16 }}
+                whileHover={{ y: -6, scale: 1.03 }}
+              >
+                <div className="tech-card group relative rounded-2xl overflow-hidden">
+                  <div className="tech-card-glow absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.2), transparent 60%)" }} />
+                  <div className="relative h-full bg-neutral-950/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 group-hover:border-blue-500/30 transition-colors duration-500">
+                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.35), transparent)" }} />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl border border-white/[0.06] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.03))", color: "#3b82f6" }}>
+                        <Cloud className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-text-primary">Tools</h3>
+                        <p className="text-[10px] text-text-muted">3 technologies</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {TECH_STACK[2].items.map((item) => (
+                        <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/[0.03] border border-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-slate-400 group-hover:text-slate-300 transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </section>
 
         {/* ─── INTERACTIVE TECH GRAPH ─── */}

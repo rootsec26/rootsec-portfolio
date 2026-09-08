@@ -95,7 +95,7 @@ function renderWhoami(): TerminalLine[] {
       html: true,
     },
     { id: Date.now() + 7, type: "output", text: "" },
-    { id: Date.now() + 8, type: "output", text: "  Name:    Ashraf Omar (أشرف عمر)" },
+    { id: Date.now() + 8, type: "output", text: "  Name:    Ashraf Omar" },
     { id: Date.now() + 9, type: "output", text: "  Role:    AI Student & Full-Stack Developer" },
     { id: Date.now() + 10, type: "output", text: "  Uni:     Faculty of Computers & AI — Assiut National University" },
     { id: Date.now() + 11, type: "output", text: "  Focus:   Building ultra-fast, accessible web applications" },
