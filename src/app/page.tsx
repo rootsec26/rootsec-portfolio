@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import Hero3D from "@/components/Hero3D";
 import CyberBot from "@/components/CyberBot";
@@ -503,6 +504,36 @@ export default function PortfolioPage() {
           </motion.div>
         </section>
 
+        {/* ─── AI AVATAR SHOWCASE ─── */}
+        <section className="w-full relative min-h-[500px] flex items-center justify-center overflow-hidden my-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src="/photo_ai.png"
+              alt="AI Generated Avatar"
+              fill
+              className="object-cover opacity-80"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10 pointer-events-none" />
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="absolute bottom-8 text-sm text-slate-500 tracking-wide z-20"
+          >
+            Crafting the future with AI
+          </motion.p>
+        </section>
+
         {/* ─── SELECTED PROJECTS ─── */}
         <section id="work" className="mx-auto max-w-6xl px-6 md:px-10 py-28 md:py-36">
           {/* Section Header */}
@@ -905,22 +936,6 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
           >
             <p>&copy; {new Date().getFullYear()} rootsec. Designed with precision.</p>
-            <div className="flex items-center gap-6">
-              {[
-                { label: "Work", href: "#work" },
-                { label: "Stack", href: "#stack" },
-                { label: "Contact", href: "#contact" },
-              ].map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-slate-300 transition-colors"
-                  whileHover={{ y: -1 }}
-                >
-                  {link.label}
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
         </footer>
       </main>

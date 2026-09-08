@@ -1,120 +1,39 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, MeshDistortMaterial } from '@react-three/drei';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import * as THREE from 'three';
-
-/* ──────────────────────────────────────────────
-   3D Scene – Chrome Metallic Torus Knot
-   ────────────────────────────────────────────── */
-
-function ChromeTorusKnot({ mouse }: { mouse: { x: number; y: number } }) {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const baseRotation = useRef({ x: 0, y: 0 });
-
-  useFrame((_state, delta) => {
-    if (!meshRef.current) return;
-    // slow auto-rotate
-    meshRef.current.rotation.y += delta * 0.25;
-    meshRef.current.rotation.x += delta * 0.08;
-
-    // tilt toward mouse
-    const targetX = mouse.y * 0.3;
-    const targetY = mouse.x * 0.5;
-    baseRotation.current.x += (targetX - baseRotation.current.x) * 0.04;
-    baseRotation.current.y += (targetY - baseRotation.current.y) * 0.04;
-    meshRef.current.rotation.x += baseRotation.current.x;
-    meshRef.current.rotation.y += baseRotation.current.y;
-  });
-
-  return (
-    <mesh ref={meshRef} scale={1.55} position={[0, 0, 0]}>
-      <torusKnotGeometry args={[1, 0.35, 256, 64, 2, 3]} />
-      <MeshDistortMaterial
-        color="#b8c0cc"
-        metalness={1}
-        roughness={0.05}
-        envMapIntensity={1.8}
-        distort={0.15}
-        speed={1.5}
-      />
-    </mesh>
-  );
-}
-
-function Lights() {
-  return (
-    <>
-      <ambientLight intensity={0.15} />
-      <pointLight position={[-4, 3, 2]} color="#a855f7" intensity={40} distance={12} />
-      <pointLight position={[4, -2, 3]} color="#06b6d4" intensity={35} distance={12} />
-      <pointLight position={[0, 4, -3]} color="#8b5cf6" intensity={20} distance={10} />
-      <spotLight
-        position={[0, 6, 4]}
-        angle={0.35}
-        penumbra={0.8}
-        intensity={15}
-        color="#38bdf8"
-        distance={14}
-      />
-    </>
-  );
-}
-
-function Scene({ mouse }: { mouse: { x: number; y: number } }) {
-  return (
-    <>
-      <Lights />
-      <Environment preset="city" environmentIntensity={0.6} />
-      <ChromeTorusKnot mouse={mouse} />
-    </>
-  );
-}
 
 /* ──────────────────────────────────────────────
    Selection Frame – Bounding Box Handles
    ────────────────────────────────────────────── */
 
 const HANDLE_POSITIONS = [
-  { top: 0, left: 0 },   // top-left
-  { top: 0, left: '50%' }, // top-center
-  { top: 0, right: 0 },  // top-right
-  { top: '50%', left: 0 }, // mid-left
-  { top: '50%', right: 0 }, // mid-right
-  { bottom: 0, left: 0 }, // bottom-left
-  { bottom: 0, left: '50%' }, // bottom-center
-  { bottom: 0, right: 0 }, // bottom-right
+  { top: 0, left: 0 },
+  { top: 0, left: '50%' },
+  { top: 0, right: 0 },
+  { top: '50%', left: 0 },
+  { top: '50%', right: 0 },
+  { bottom: 0, left: 0 },
+  { bottom: 0, left: '50%' },
+  { bottom: 0, right: 0 },
 ];
 
 function SelectionFrame() {
   return (
     <div className="pointer-events-none absolute inset-0 z-20 hidden md:block">
-      {/* border box */}
       <div className="absolute top-6 left-6 right-6 bottom-6 md:top-10 md:left-10 md:right-10 md:bottom-10 border border-white/[0.12] rounded-2xl" />
-
-      {/* corner + edge handles */}
       {HANDLE_POSITIONS.map((pos, i) => (
         <motion.div
           key={i}
           className="absolute w-[9px] h-[9px] bg-white/70 border border-white/40 shadow-[0_0_6px_rgba(255,255,255,0.3)]"
-          style={{
-            ...pos,
-            transform: 'translate(-50%, -50%)',
-            borderRadius: 1,
-          }}
+          style={{ ...pos, transform: 'translate(-50%, -50%)', borderRadius: 1 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2 + i * 0.06, duration: 0.3, ease: 'easeOut' }}
         />
       ))}
-
-      {/* dashed measurement lines */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none">
-        {/* top-left corner bracket */}
         <path d="M 30 16 L 16 16 L 16 30" stroke="rgba(255,255,255,0.15)" strokeWidth="2" strokeDasharray="3 3" />
-        {/* bottom-right corner bracket */}
         <path d="M 970 984 L 984 984 L 984 970" stroke="rgba(255,255,255,0.15)" strokeWidth="2" strokeDasharray="3 3" />
       </svg>
     </div>
@@ -133,7 +52,6 @@ function SvgAccentPaths() {
       fill="none"
       preserveAspectRatio="xMidYMid slice"
     >
-      {/* main sweeping curve */}
       <motion.path
         d="M -20 520 C 180 420, 320 280, 540 320 S 820 440, 1040 260 S 1200 120, 1280 80"
         stroke="url(#grad1)"
@@ -144,7 +62,6 @@ function SvgAccentPaths() {
         animate={{ pathLength: 1, opacity: 0.45 }}
         transition={{ duration: 2.8, delay: 0.6, ease: 'easeInOut' }}
       />
-      {/* secondary thin accent */}
       <motion.path
         d="M -40 620 C 200 560, 400 380, 660 400 S 900 300, 1120 200"
         stroke="url(#grad2)"
@@ -155,7 +72,6 @@ function SvgAccentPaths() {
         animate={{ pathLength: 1, opacity: 0.3 }}
         transition={{ duration: 3.2, delay: 1.0, ease: 'easeInOut' }}
       />
-      {/* pen tool anchor dots */}
       <motion.circle cx="540" cy="320" r="3" fill="#38bdf8"
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 0.6, scale: 1 }}
@@ -166,7 +82,6 @@ function SvgAccentPaths() {
         animate={{ opacity: 0.5, scale: 1 }}
         transition={{ delay: 2.0, duration: 0.4 }}
       />
-      {/* control line stubs */}
       <motion.line x1="540" y1="320" x2="460" y2="260" stroke="#38bdf8" strokeWidth="0.6" strokeDasharray="2 4"
         initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 2.2, duration: 0.5 }}
       />
@@ -224,19 +139,52 @@ function FloatingParticles() {
             background: p.id % 3 === 0 ? '#38bdf8' : p.id % 3 === 1 ? '#a855f7' : '#06b6d4',
           }}
           initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0, 0.6, 0],
-            y: [0, -30, -60],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+          animate={{ opacity: [0, 0.6, 0], y: [0, -30, -60] }}
+          transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeInOut' }}
         />
       ))}
     </div>
+  );
+}
+
+/* ──────────────────────────────────────────────
+   Small Spinning Tech Icon (replaces 3D Canvas)
+   ────────────────────────────────────────────── */
+
+function SpinningTechIcon() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-5 pointer-events-none"
+    >
+      <div className="animate-spin" style={{ animationDuration: '12s' }}>
+        <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="spinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.45" />
+              <stop offset="50%" stopColor="#a855f7" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.45" />
+            </linearGradient>
+            <linearGradient id="spinStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#a855f7" stopOpacity="0.7" />
+            </linearGradient>
+          </defs>
+          <polygon points="96,16 172,60 172,132 96,176 20,132 20,60" fill="url(#spinGrad)" stroke="url(#spinStroke)" strokeWidth="1.5" />
+          <polygon points="96,40 148,68 148,124 96,152 44,124 44,68" fill="none" stroke="url(#spinStroke)" strokeWidth="0.8" strokeDasharray="4 4" />
+          <circle cx="96" cy="96" r="12" fill="none" stroke="#38bdf8" strokeWidth="1" opacity="0.6" />
+          <circle cx="96" cy="96" r="3" fill="#38bdf8" opacity="0.8" />
+          <line x1="96" y1="16" x2="96" y2="40" stroke="#38bdf8" strokeWidth="0.5" opacity="0.4" />
+          <line x1="172" y1="60" x2="148" y2="68" stroke="#a855f7" strokeWidth="0.5" opacity="0.4" />
+          <line x1="172" y1="132" x2="148" y2="124" stroke="#a855f7" strokeWidth="0.5" opacity="0.4" />
+          <line x1="96" y1="176" x2="96" y2="152" stroke="#06b6d4" strokeWidth="0.5" opacity="0.4" />
+          <line x1="20" y1="132" x2="44" y2="124" stroke="#06b6d4" strokeWidth="0.5" opacity="0.4" />
+          <line x1="20" y1="60" x2="44" y2="68" stroke="#38bdf8" strokeWidth="0.5" opacity="0.4" />
+        </svg>
+      </div>
+    </motion.div>
   );
 }
 
@@ -245,46 +193,12 @@ function FloatingParticles() {
    ────────────────────────────────────────────── */
 
 export default function Hero3D() {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    setMouse({ x, y });
-  }, []);
-
   return (
-    <section
-      className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden"
-      onMouseMove={handleMouseMove}
-    >
-      {/* 3D Canvas */}
-      <div className="absolute inset-0 z-0">
-        {hasMounted && (
-          <Canvas
-            camera={{ position: [0, 0, 6], fov: 45 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-            style={{ background: 'transparent' }}
-          >
-            <Scene mouse={mouse} />
-          </Canvas>
-        )}
-      </div>
+    <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden">
+      <SpinningTechIcon />
 
-      {/* Floating Particles */}
       <FloatingParticles />
-
-      {/* SVG Accent Paths */}
       <SvgAccentPaths />
-
-      {/* Selection Frame */}
       <SelectionFrame />
 
       {/* ──── Overlay Content ──── */}
