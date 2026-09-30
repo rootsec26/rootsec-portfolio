@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" fill="none" role="img" aria-label="Madar-X Academic Ecosystem mockup">
+  <defs>
+    <linearGradient id="mx-bg" x1="0" y1="0" x2="1280" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08141a"/>
+      <stop offset="0.55" stop-color="#060a0e"/>
+      <stop offset="1" stop-color="#04070a"/>
+    </linearGradient>
+    <linearGradient id="mx-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <linearGradient id="mx-area" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#22d3ee" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="mx-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop stop-color="#22d3ee" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="mx-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="800" fill="url(#mx-bg)"/>
+  <rect width="1280" height="800" fill="url(#mx-grid)"/>
+  <ellipse cx="960" cy="120" rx="360" ry="190" fill="url(#mx-glow)"/>
+
+  <!-- window chrome -->
+  <rect width="1280" height="52" fill="#0a0f13"/>
+  <rect y="51" width="1280" height="1" fill="#ffffff" fill-opacity="0.07"/>
+  <circle cx="26" cy="26" r="6" fill="#ff5f56"/>
+  <circle cx="48" cy="26" r="6" fill="#ffbd2e"/>
+  <circle cx="70" cy="26" r="6" fill="#27c93f"/>
+  <rect x="446" y="15" width="388" height="22" rx="11" fill="#11181d" stroke="#ffffff" stroke-opacity="0.06"/>
+  <circle cx="463" cy="26" r="3.5" fill="#22d3ee"/>
+  <text x="476" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#64748b">https://madarx.vercel.app</text>
+
+  <!-- sidebar -->
+  <rect y="52" width="232" height="748" fill="#060a0d"/>
+  <rect x="231" y="52" width="1" height="748" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="24" y="84" width="96" height="14" rx="7" fill="#22d3ee" fill-opacity="0.6"/>
+  <g>
+    <rect x="16" y="132" width="200" height="38" rx="10" fill="#22d3ee" fill-opacity="0.12" stroke="#22d3ee" stroke-opacity="0.35"/>
+    <circle cx="36" cy="151" r="5" fill="#22d3ee"/>
+    <rect x="52" y="145" width="96" height="11" rx="5.5" fill="#22d3ee" fill-opacity="0.6"/>
+  </g>
+  <g fill="#1e293b">
+    <rect x="36" y="205" width="8" height="8" rx="2"/><rect x="54" y="204" width="120" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="253" width="8" height="8" rx="2"/><rect x="54" y="252" width="84" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="301" width="8" height="8" rx="2"/><rect x="54" y="300" width="140" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="349" width="8" height="8" rx="2"/><rect x="54" y="348" width="102" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="397" width="8" height="8" rx="2"/><rect x="54" y="396" width="76" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="445" width="8" height="8" rx="2"/><rect x="54" y="444" width="126" height="10" rx="5" fill="#334155"/>
+  </g>
+  <rect x="16" y="690" width="200" height="70" rx="12" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.06"/>
+  <circle cx="46" cy="725" r="16" fill="#22d3ee" fill-opacity="0.16"/>
+  <rect x="72" y="712" width="90" height="10" rx="5" fill="#334155"/>
+  <rect x="72" y="730" width="58" height="8" rx="4" fill="#1e293b"/>
+
+  <!-- hero header -->
+  <text x="264" y="122" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="32" font-weight="800" fill="#f1f5f9">Madar-X</text>
+  <text x="264" y="150" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#67e8f9">Academic Ecosystem · semester 6 · data simulation console</text>
+  <rect x="1052" y="98" width="192" height="42" rx="21" fill="#22d3ee" fill-opacity="0.14" stroke="#22d3ee" stroke-opacity="0.45"/>
+  <text x="1148" y="124" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="#22d3ee">Run Simulation ↗</text>
+
+  <!-- stat cards -->
+  <g>
+    <rect x="264" y="184" width="300" height="112" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="288" y="218" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">CUMULATIVE GPA</text>
+    <text x="288" y="264" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">3.82</text>
+    <rect x="288" y="278" width="140" height="6" rx="3" fill="url(#mx-accent)"/>
+  </g>
+  <g>
+    <rect x="588" y="184" width="300" height="112" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="612" y="218" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">ENROLLED HOURS</text>
+    <text x="612" y="264" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">142</text>
+    <rect x="612" y="278" width="96" height="6" rx="3" fill="url(#mx-accent)"/>
+  </g>
+  <g>
+    <rect x="912" y="184" width="332" height="112" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="936" y="218" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">COMPLETED COURSES</text>
+    <text x="936" y="264" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">34 / 41</text>
+    <rect x="936" y="278" width="200" height="6" rx="3" fill="url(#mx-accent)"/>
+  </g>
+
+  <!-- progress chart -->
+  <rect x="264" y="320" width="620" height="240" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="288" y="356" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Credit Progression</text>
+  <path d="M288 512 L360 486 L432 496 L504 452 L576 462 L648 418 L720 430 L792 386 L864 366 L864 536 L288 536 Z" fill="url(#mx-area)"/>
+  <path d="M288 512 L360 486 L432 496 L504 452 L576 462 L648 418 L720 430 L792 386 L864 366" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <g fill="#0a1014" stroke="#22d3ee" stroke-width="2.5">
+    <circle cx="504" cy="452" r="5"/>
+    <circle cx="720" cy="430" r="5"/>
+    <circle cx="864" cy="366" r="5"/>
+  </g>
+  <rect x="288" y="536" width="576" height="1" fill="#ffffff" fill-opacity="0.06"/>
+
+  <!-- simulation panel -->
+  <rect x="908" y="320" width="336" height="240" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="932" y="356" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Simulation Controls</text>
+  <g>
+    <rect x="932" y="382" width="288" height="44" rx="10" fill="#ffffff" fill-opacity="0.03" stroke="#ffffff" stroke-opacity="0.06"/>
+    <rect x="948" y="399" width="120" height="10" rx="5" fill="#334155"/>
+    <rect x="1148" y="396" width="56" height="18" rx="9" fill="#22d3ee" fill-opacity="0.25"/>
+    <rect x="932" y="438" width="288" height="44" rx="10" fill="#ffffff" fill-opacity="0.03" stroke="#ffffff" stroke-opacity="0.06"/>
+    <rect x="948" y="455" width="152" height="10" rx="5" fill="#334155"/>
+    <rect x="1148" y="452" width="56" height="18" rx="9" fill="#818cf8" fill-opacity="0.28"/>
+    <rect x="932" y="494" width="288" height="44" rx="10" fill="#ffffff" fill-opacity="0.03" stroke="#ffffff" stroke-opacity="0.06"/>
+    <rect x="948" y="511" width="96" height="10" rx="5" fill="#334155"/>
+    <rect x="1148" y="508" width="56" height="18" rx="9" fill="#22d3ee" fill-opacity="0.25"/>
+  </g>
+
+  <!-- course schedule -->
+  <rect x="264" y="584" width="980" height="188" rx="16" fill="#0a1014" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="288" y="620" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Today's Schedule</text>
+  <g>
+    <rect x="288" y="642" width="300" height="106" rx="12" fill="#22d3ee" fill-opacity="0.06" stroke="#22d3ee" stroke-opacity="0.25"/>
+    <text x="308" y="672" font-family="ui-monospace, monospace" font-size="11" fill="#67e8f9">09:00 — 10:30</text>
+    <rect x="308" y="686" width="180" height="12" rx="6" fill="#334155"/>
+    <rect x="308" y="710" width="120" height="10" rx="5" fill="#1e293b"/>
+    <rect x="620" y="642" width="300" height="106" rx="12" fill="#818cf8" fill-opacity="0.06" stroke="#818cf8" stroke-opacity="0.22"/>
+    <text x="640" y="672" font-family="ui-monospace, monospace" font-size="11" fill="#a5b4fc">11:00 — 12:30</text>
+    <rect x="640" y="686" width="200" height="12" rx="6" fill="#334155"/>
+    <rect x="640" y="710" width="96" height="10" rx="5" fill="#1e293b"/>
+    <rect x="952" y="642" width="268" height="106" rx="12" fill="#ffffff" fill-opacity="0.03" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="972" y="672" font-family="ui-monospace, monospace" font-size="11" fill="#64748b">14:00 — 15:30</text>
+    <rect x="972" y="686" width="160" height="12" rx="6" fill="#334155"/>
+    <rect x="972" y="710" width="110" height="10" rx="5" fill="#1e293b"/>
+  </g>
+</svg>

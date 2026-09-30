@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" fill="none" role="img" aria-label="Al-Nazer Educational Platform mockup">
+  <defs>
+    <linearGradient id="az-bg" x1="0" y1="0" x2="1280" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0a1518"/>
+      <stop offset="0.55" stop-color="#070b0e"/>
+      <stop offset="1" stop-color="#050709"/>
+    </linearGradient>
+    <linearGradient id="az-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#34d399"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <radialGradient id="az-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop stop-color="#34d399" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="az-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="800" fill="url(#az-bg)"/>
+  <rect width="1280" height="800" fill="url(#az-grid)"/>
+  <ellipse cx="880" cy="150" rx="380" ry="200" fill="url(#az-glow)"/>
+
+  <!-- window chrome -->
+  <rect width="1280" height="52" fill="#0b0f12"/>
+  <rect y="51" width="1280" height="1" fill="#ffffff" fill-opacity="0.07"/>
+  <circle cx="26" cy="26" r="6" fill="#ff5f56"/>
+  <circle cx="48" cy="26" r="6" fill="#ffbd2e"/>
+  <circle cx="70" cy="26" r="6" fill="#27c93f"/>
+  <rect x="430" y="15" width="420" height="22" rx="11" fill="#12181c" stroke="#ffffff" stroke-opacity="0.06"/>
+  <circle cx="447" cy="26" r="3.5" fill="#34d399"/>
+  <text x="460" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#64748b">https://alnazer.vercel.app</text>
+
+  <!-- sidebar -->
+  <rect y="52" width="232" height="748" fill="#070b0d"/>
+  <rect x="231" y="52" width="1" height="748" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="24" y="84" width="120" height="14" rx="7" fill="#34d399" fill-opacity="0.55"/>
+  <g>
+    <rect x="16" y="132" width="200" height="38" rx="10" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-opacity="0.35"/>
+    <circle cx="36" cy="151" r="5" fill="#34d399"/>
+    <rect x="52" y="145" width="104" height="11" rx="5.5" fill="#34d399" fill-opacity="0.65"/>
+  </g>
+  <g fill="#1e293b">
+    <rect x="36" y="205" width="8" height="8" rx="2"/><rect x="54" y="204" width="118" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="253" width="8" height="8" rx="2"/><rect x="54" y="252" width="96" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="301" width="8" height="8" rx="2"/><rect x="54" y="300" width="130" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="349" width="8" height="8" rx="2"/><rect x="54" y="348" width="88" height="10" rx="5" fill="#334155"/>
+    <rect x="36" y="397" width="8" height="8" rx="2"/><rect x="54" y="396" width="112" height="10" rx="5" fill="#334155"/>
+  </g>
+  <rect x="16" y="690" width="200" height="70" rx="12" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.06"/>
+  <circle cx="46" cy="725" r="16" fill="#34d399" fill-opacity="0.16"/>
+  <rect x="72" y="712" width="96" height="10" rx="5" fill="#334155"/>
+  <rect x="72" y="730" width="66" height="8" rx="4" fill="#1e293b"/>
+
+  <!-- hero header -->
+  <text x="264" y="122" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="32" font-weight="800" fill="#f1f5f9">Al-Nazer</text>
+  <text x="264" y="150" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#5eead4">Educational Platform · video library, quizzes &amp; dashboards</text>
+  <rect x="1046" y="98" width="198" height="42" rx="21" fill="#34d399" fill-opacity="0.14" stroke="#34d399" stroke-opacity="0.45"/>
+  <text x="1145" y="124" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="#34d399">Continue Learning ↗</text>
+
+  <!-- stat cards -->
+  <g>
+    <rect x="264" y="184" width="300" height="122" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="288" y="220" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">ACTIVE STUDENTS</text>
+    <text x="288" y="266" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">12,480</text>
+    <rect x="288" y="284" width="120" height="6" rx="3" fill="url(#az-accent)"/>
+  </g>
+  <g>
+    <rect x="588" y="184" width="300" height="122" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="612" y="220" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">VIDEO LESSONS</text>
+    <text x="612" y="266" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">1,204</text>
+    <rect x="612" y="284" width="86" height="6" rx="3" fill="url(#az-accent)"/>
+  </g>
+  <g>
+    <rect x="912" y="184" width="332" height="122" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+    <text x="936" y="220" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#64748b">AVG. QUIZ SCORE</text>
+    <text x="936" y="266" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">87.5%</text>
+    <rect x="936" y="284" width="150" height="6" rx="3" fill="url(#az-accent)"/>
+  </g>
+
+  <!-- chart panel -->
+  <rect x="264" y="332" width="620" height="228" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="288" y="368" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Weekly Engagement</text>
+  <rect x="762" y="352" width="98" height="22" rx="11" fill="#34d399" fill-opacity="0.12"/>
+  <text x="811" y="367" text-anchor="middle" font-family="ui-monospace, monospace" font-size="11" fill="#34d399">+18.4%</text>
+  <g fill="url(#az-accent)" opacity="0.85">
+    <rect x="300" y="474" width="30" height="56" rx="6"/>
+    <rect x="352" y="442" width="30" height="88" rx="6"/>
+    <rect x="404" y="462" width="30" height="68" rx="6"/>
+    <rect x="456" y="410" width="30" height="120" rx="6"/>
+    <rect x="508" y="434" width="30" height="96" rx="6"/>
+    <rect x="560" y="396" width="30" height="134" rx="6"/>
+    <rect x="612" y="424" width="30" height="106" rx="6"/>
+    <rect x="664" y="384" width="30" height="146" rx="6"/>
+    <rect x="716" y="418" width="30" height="112" rx="6"/>
+    <rect x="768" y="376" width="30" height="154" rx="6"/>
+    <rect x="820" y="404" width="30" height="126" rx="6"/>
+  </g>
+  <rect x="288" y="544" width="572" height="1" fill="#ffffff" fill-opacity="0.06"/>
+
+  <!-- activity panel -->
+  <rect x="908" y="332" width="336" height="228" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="932" y="368" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Recent Activity</text>
+  <g>
+    <circle cx="940" cy="404" r="7" fill="#34d399" fill-opacity="0.8"/>
+    <rect x="958" y="396" width="180" height="9" rx="4.5" fill="#334155"/>
+    <rect x="958" y="411" width="120" height="8" rx="4" fill="#1e293b"/>
+    <circle cx="940" cy="452" r="7" fill="#22d3ee" fill-opacity="0.7"/>
+    <rect x="958" y="444" width="150" height="9" rx="4.5" fill="#334155"/>
+    <rect x="958" y="459" width="96" height="8" rx="4" fill="#1e293b"/>
+    <circle cx="940" cy="500" r="7" fill="#fbbf24" fill-opacity="0.7"/>
+    <rect x="958" y="492" width="200" height="9" rx="4.5" fill="#334155"/>
+    <rect x="958" y="507" width="134" height="8" rx="4" fill="#1e293b"/>
+  </g>
+
+  <!-- table -->
+  <rect x="264" y="588" width="980" height="184" rx="16" fill="#0b1114" stroke="#ffffff" stroke-opacity="0.07"/>
+  <text x="288" y="624" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">Course Assignments</text>
+  <g>
+    <rect x="288" y="648" width="932" height="34" rx="8" fill="#34d399" fill-opacity="0.05"/>
+    <circle cx="310" cy="665" r="6" fill="#34d399"/>
+    <rect x="330" y="660" width="240" height="10" rx="5" fill="#334155"/>
+    <rect x="720" y="660" width="90" height="10" rx="5" fill="#1e293b"/>
+    <rect x="1060" y="655" width="140" height="20" rx="10" fill="#34d399" fill-opacity="0.16"/>
+    <rect x="288" y="690" width="932" height="34" rx="8" fill="#ffffff" fill-opacity="0.02"/>
+    <circle cx="310" cy="707" r="6" fill="#22d3ee"/>
+    <rect x="330" y="702" width="300" height="10" rx="5" fill="#334155"/>
+    <rect x="720" y="702" width="120" height="10" rx="5" fill="#1e293b"/>
+    <rect x="1060" y="697" width="140" height="20" rx="10" fill="#22d3ee" fill-opacity="0.14"/>
+    <circle cx="310" cy="749" r="6" fill="#f472b6"/>
+    <rect x="330" y="744" width="210" height="10" rx="5" fill="#334155"/>
+    <rect x="720" y="744" width="76" height="10" rx="5" fill="#1e293b"/>
+    <rect x="1060" y="739" width="140" height="20" rx="10" fill="#f472b6" fill-opacity="0.14"/>
+  </g>
+</svg>

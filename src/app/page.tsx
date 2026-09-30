@@ -7,6 +7,9 @@ import CyberBot from "@/components/CyberBot";
 import TerminalModal from "@/components/TerminalModal";
 import TechStackGraph from "@/components/TechStackGraph";
 import BorderBeam from "@/components/BorderBeam";
+import ProjectPreviewModal from "@/components/ProjectPreviewModal";
+import GithubIcon from "@/components/GithubIcon";
+import { PROJECTS, type PortfolioProject } from "@/data/projects";
 import {
   Mail,
   ExternalLink,
@@ -23,6 +26,7 @@ import {
   ChevronRight,
   Send,
   GraduationCap,
+  Eye,
 } from "lucide-react";
 
 /* ─── Animation Variants ─── */
@@ -95,23 +99,6 @@ const TECH_STACK = [
   },
 ];
 
-const PROJECTS = [
-  {
-    title: "Al-Nazer Educational Platform",
-    category: "Full-Stack E-Learning Ecosystem",
-    desc: "A full-stack e-learning ecosystem built for high school students featuring video management, interactive quizzes, and real-time dashboards.",
-    badges: ["Next.js", "React", "Tailwind CSS", "Supabase", "Cloudinary", "Vercel"],
-    url: "https://elnazer.vercel.app/",
-  },
-  {
-    title: "Madar-X Academic Ecosystem",
-    category: "Academic Management Platform",
-    desc: "A modern university academic management platform designed for data simulation, course tracking, and interactive controls.",
-    badges: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"],
-    url: "https://madarx.vercel.app/",
-  },
-];
-
 /* ─── Components ─── */
 
 function GlowLine() {
@@ -141,15 +128,15 @@ function LiveBadge() {
 
 /* ─── 3D Tilt Card Component ─── */
 
-interface Project {
-  title: string;
-  category: string;
-  desc: string;
-  badges: string[];
-  url: string;
-}
-
-function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
+function ProjectTiltCard({
+  proj,
+  index,
+  onPreview,
+}: {
+  proj: PortfolioProject;
+  index: number;
+  onPreview: (proj: PortfolioProject) => void;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const targetRef = useRef({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
@@ -212,8 +199,20 @@ function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
       {/* Holographic glare overlay */}
       <div className="tilt-card-glare" />
 
-      {/* macOS-style dark window header */}
-      <div className="tilt-depth-1 bg-[#0a0a0a] border-b border-white/[0.06] px-4 py-2.5 flex items-center gap-3">
+      {/* macOS-style dark window header — clickable mockup opens live preview */}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={`Preview ${proj.title}`}
+        onClick={() => onPreview(proj)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onPreview(proj);
+          }
+        }}
+        className="tilt-depth-1 group/mockup cursor-pointer select-none bg-[#0a0a0a] border-b border-white/[0.06] px-4 py-2.5 flex items-center gap-3 transition-colors hover:bg-white/[0.035]"
+      >
         <div className="flex items-center gap-1.5">
           <span className="traffic-light bg-[#ff5f56]" />
           <span className="traffic-light bg-[#ffbd2e]" />
@@ -228,6 +227,10 @@ function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
             {new URL(proj.url).hostname}
           </span>
         </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald/25 bg-emerald/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald opacity-0 transition-opacity duration-300 group-hover/mockup:opacity-100">
+          <Eye className="w-3 h-3" />
+          Preview
+        </span>
         <ExternalLink className="w-3.5 h-3.5 text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
 
@@ -287,18 +290,47 @@ function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
           ))}
         </motion.div>
 
-        <motion.a
-          href={proj.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="tilt-depth-4 btn-shimmer inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald/10 to-accent/10 border border-emerald/20 px-5 py-2.5 text-sm font-semibold text-emerald group-hover:border-emerald/40 group-hover:shadow-[0_0_24px_rgba(52,211,153,0.15)] transition-all duration-300"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        >
-          Visit Live Platform
-          <ExternalLink className="w-4 h-4" />
-        </motion.a>
+        <div className="flex flex-wrap items-center gap-3 tilt-depth-4">
+          <motion.button
+            type="button"
+            onClick={() => onPreview(proj)}
+            className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald to-teal-400 px-5 py-2.5 text-sm font-semibold text-black shadow-[0_0_24px_rgba(52,211,153,0.22)] hover:shadow-[0_0_36px_rgba(52,211,153,0.4)] transition-shadow duration-300"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            Quick View
+            <Eye className="w-4 h-4" />
+          </motion.button>
+
+          <motion.a
+            href={proj.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Source Code"
+            title="View Source Code"
+            className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-white/[0.03] border border-white/[0.1] px-4 py-2.5 text-sm font-semibold text-neutral-400 hover:text-white hover:border-white/[0.22] hover:bg-white/[0.07] transition-colors duration-300"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            <GithubIcon className="w-4 h-4 flex-shrink-0" />
+            Code
+          </motion.a>
+
+          <motion.a
+            href={proj.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald/10 to-accent/10 border border-emerald/20 px-5 py-2.5 text-sm font-semibold text-emerald group-hover:border-emerald/40 group-hover:shadow-[0_0_24px_rgba(52,211,153,0.15)] transition-all duration-300"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            Visit Live Platform
+            <ExternalLink className="w-4 h-4" />
+          </motion.a>
+        </div>
       </div>
     </motion.div>
   );
@@ -306,6 +338,7 @@ function ProjectTiltCard({ proj, index }: { proj: Project; index: number }) {
 
 export default function PortfolioPage() {
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [previewProject, setPreviewProject] = useState<PortfolioProject | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileCard, setMobileCard] = useState(0);
   const mobileTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -371,18 +404,30 @@ export default function PortfolioPage() {
             <a href="#stack" className="hover:text-white transition-colors">Stack</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </nav>
-          <button
-            onClick={() => setTerminalOpen(true)}
-            className="terminal-toggle-btn"
-            aria-label="Open terminal mode"
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="4 17 10 11 4 5" />
-              <line x1="12" y1="19" x2="20" y2="19" />
-            </svg>
-            <span className="hidden sm:inline">&gt;_ Terminal</span>
-            <span className="sm:hidden">&gt;_</span>
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              href="https://github.com/rootsec26"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+              title="GitHub"
+              className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+            >
+              <GithubIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+            </a>
+            <button
+              onClick={() => setTerminalOpen(true)}
+              className="terminal-toggle-btn"
+              aria-label="Open terminal mode"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+              <span className="hidden sm:inline">&gt;_ Terminal</span>
+              <span className="sm:hidden">&gt;_</span>
+            </button>
+          </div>
         </div>
       </header>
       {/* ─── Ambient Floating Glow Blobs ─── */}
@@ -583,7 +628,12 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
           >
             {PROJECTS.map((proj, i) => (
-              <ProjectTiltCard key={proj.title} proj={proj} index={i} />
+              <ProjectTiltCard
+                key={proj.title}
+                proj={proj}
+                index={i}
+                onPreview={setPreviewProject}
+              />
             ))}
           </motion.div>
         </section>
@@ -1087,6 +1137,12 @@ export default function PortfolioPage() {
 
       {/* ─── Terminal / Hacker Mode ─── */}
       <TerminalModal isOpen={terminalOpen} onClose={() => setTerminalOpen(false)} />
+
+      {/* ─── Project Preview / Live Mockup Viewer ─── */}
+      <ProjectPreviewModal
+        project={previewProject}
+        onClose={() => setPreviewProject(null)}
+      />
     </div>
   );
 }
