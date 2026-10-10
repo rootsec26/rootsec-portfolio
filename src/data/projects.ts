@@ -20,7 +20,7 @@ export const PROJECTS: PortfolioProject[] = [
     category: "Full-Stack E-Learning Ecosystem",
     desc: "A full-stack e-learning ecosystem built for high school students featuring video management, interactive quizzes, and real-time dashboards.",
     badges: ["Next.js", "React", "Tailwind CSS", "Supabase", "Cloudinary", "Vercel"],
-    url: "https://alnazer.vercel.app",
+    url: "https://elnazer.vercel.app/",
     githubUrl: "https://github.com/rootsec26",
     previewType: "iframe",
     mockupImage: "/projects/alnazer-mockup.svg",

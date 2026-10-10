@@ -30,7 +30,7 @@
   <circle cx="70" cy="26" r="6" fill="#27c93f"/>
   <rect x="430" y="15" width="420" height="22" rx="11" fill="#12181c" stroke="#ffffff" stroke-opacity="0.06"/>
   <circle cx="447" cy="26" r="3.5" fill="#34d399"/>
-  <text x="460" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#64748b">https://alnazer.vercel.app</text>
+  <text x="460" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#64748b">https://elnazer.vercel.app</text>
 
   <!-- sidebar -->
   <rect y="52" width="232" height="748" fill="#070b0d"/>
