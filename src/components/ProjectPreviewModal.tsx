@@ -139,7 +139,7 @@ export default function ProjectPreviewModal({
         >
           {/* ── Backdrop ── */}
           <motion.div
-            className="absolute inset-0 bg-black/85 backdrop-blur-md"
+            className="absolute inset-0 bg-slate-900/30 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -186,7 +186,7 @@ function FallbackView({
   return (
     <motion.div
       key="fallback"
-      className="absolute inset-0 z-30 overflow-y-auto bg-[#050607]"
+      className="absolute inset-0 z-30 overflow-y-auto bg-slate-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -199,18 +199,18 @@ function FallbackView({
       <div className="relative z-10 mx-auto flex min-h-full w-full max-w-3xl flex-col justify-center gap-6 px-5 py-8 sm:px-8 sm:py-10">
         {/* ── Fallback notice tag ── */}
         <div className="flex items-center gap-2 self-start rounded-full border border-amber-400/25 bg-amber-400/[0.07] px-3.5 py-1.5">
-          <ShieldCheck className="h-3.5 w-3.5 text-amber-300" />
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-200/90">
+          <ShieldCheck className="h-3.5 w-3.5 text-amber-600" />
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-700">
             External Live Preview Protected
           </span>
         </div>
 
         {/* ── Project branding header ── */}
         <header className="flex flex-col gap-3">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald/70">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-600">
             {project.category}
           </p>
-          <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+          <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             {project.title}
           </h2>
           {project.desc && (
@@ -234,7 +234,7 @@ function FallbackView({
 
         {/* ── Static mockup preview with live-link overlay ── */}
         {mockup && (
-          <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/[0.09] bg-black shadow-[0_30px_80px_-40px_rgba(0,0,0,0.95)]">
+          <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_30px_80px_-40px_rgba(15,23,42,0.3)]">
             <Image
               src={mockup}
               alt={`${project.title} mockup preview`}
@@ -243,9 +243,9 @@ function FallbackView({
               sizes="(max-width: 768px) 100vw, 768px"
               className="object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent" />
 
-            <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-300 backdrop-blur">
+            <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-slate-100 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-700 backdrop-blur">
               static mockup
             </span>
 
@@ -270,7 +270,7 @@ function FallbackView({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shimmer inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald to-teal-400 px-6 py-3 text-sm font-bold text-black transition-shadow duration-300 hover:shadow-[0_0_36px_rgba(52,211,153,0.4)]"
+            className="btn-shimmer inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 text-sm font-bold text-white transition-shadow duration-300 hover:shadow-[0_0_36px_rgba(52,211,153,0.4)]"
           >
             Launch Live Site
             <SquareArrowOutUpRight className="h-4 w-4" />
@@ -278,7 +278,7 @@ function FallbackView({
           <button
             type="button"
             onClick={onReload}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-6 py-3 text-sm font-medium text-slate-300 transition-colors hover:border-white/25 hover:bg-white/[0.07] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900"
           >
             Try Reloading
             <RotateCw className="h-4 w-4" />
@@ -286,8 +286,8 @@ function FallbackView({
         </div>
 
         {/* ── Technical note ── */}
-        <p className="flex items-start gap-2 font-mono text-[11px] leading-relaxed text-neutral-500">
-          <TriangleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400/70" />
+        <p className="flex items-start gap-2 font-mono text-[11px] leading-relaxed text-slate-500">
+          <TriangleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
           <span>
             <span className="text-slate-400">{hostname}</span> {reason}
           </span>
@@ -444,7 +444,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
   return (
     <>
       {/* ── Top Browser Bar ── */}
-      <div className="flex items-center gap-2 border-b border-white/[0.06] bg-[#0b0b0b] px-3 py-2.5 sm:gap-3 sm:px-4">
+      <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2.5 sm:gap-3 sm:px-4">
         {/* Window controls */}
         <div className="flex shrink-0 items-center gap-1.5">
           <button
@@ -458,18 +458,18 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
         </div>
 
         {/* Tab / title */}
-        <div className="hidden max-w-[210px] items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-1.5 md:flex">
+        <div className="hidden max-w-[210px] items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 md:flex">
           <span className="relative flex h-1.5 w-1.5 shrink-0">
             <span className="live-dot-ping-1" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald" />
           </span>
-          <span className="truncate text-[11px] font-medium text-slate-300">
+          <span className="truncate text-[11px] font-medium text-slate-700">
             {project.title}
           </span>
         </div>
 
         {/* Device toggle */}
-        <div className="flex shrink-0 items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.03] p-1">
+        <div className="flex shrink-0 items-center gap-1 rounded-full border border-slate-200 bg-white p-1">
           {(["desktop", "mobile"] as const).map((mode) => (
             <button
               key={mode}
@@ -480,7 +480,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
               className={`relative flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors ${
                 device === mode
                   ? "text-emerald"
-                  : "text-neutral-500 hover:text-neutral-300"
+                  : "text-slate-500 hover:text-slate-900"
               }`}
             >
               {device === mode && (
@@ -505,7 +505,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
         </div>
 
         {/* Address bar */}
-        <div className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg border border-white/[0.07] bg-black/60 px-2.5 transition-colors focus-within:border-emerald/40">
+        <div className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg border border-slate-200 bg-white px-2.5 transition-colors focus-within:border-emerald/40">
           <Lock className="h-3.5 w-3.5 shrink-0 text-emerald/60" />
           <input
             value={address}
@@ -515,16 +515,16 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
             spellCheck={false}
             autoComplete="off"
             aria-label="Preview address"
-            className="min-w-0 flex-1 bg-transparent font-mono text-[11px] text-slate-400 outline-none selection:bg-emerald/25"
+            className="min-w-0 flex-1 bg-transparent font-mono text-[11px] text-slate-600 outline-none selection:bg-emerald/25"
           />
-          <CornerDownLeft className="hidden h-3 w-3 shrink-0 text-neutral-600 sm:block" />
+          <CornerDownLeft className="hidden h-3 w-3 shrink-0 text-slate-400 sm:block" />
           <button
             type="button"
             onClick={handleCopy}
             aria-label="Copy link"
             title="Copy link"
             className={`shrink-0 transition-colors ${
-              copied ? "text-emerald" : "text-neutral-500 hover:text-white"
+              copied ? "text-emerald-600" : "text-slate-500 hover:text-slate-900"
             }`}
           >
             {copied ? (
@@ -542,7 +542,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
           rel="noopener noreferrer"
           aria-label="Open in new tab"
           title="Open in new tab"
-          className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-neutral-400 transition-colors hover:border-emerald/30 hover:text-emerald sm:flex"
+          className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition-colors hover:border-emerald-300 hover:text-emerald-600 sm:flex"
         >
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
@@ -550,22 +550,22 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
           type="button"
           onClick={onClose}
           aria-label="Close preview"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-neutral-400 transition-colors hover:border-white/20 hover:text-white"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-neutral-400 transition-colors hover:border-slate-300 hover:text-slate-900"
         >
           <X className="h-3.5 w-3.5" />
         </button>
       </div>
 
       {/* ── Main Frame Container ── */}
-      <div className="relative flex min-h-0 flex-1 items-stretch justify-center overflow-hidden bg-[#070707] p-0 sm:p-5">
+      <div className="relative flex min-h-0 flex-1 items-stretch justify-center overflow-hidden bg-slate-100 p-0 sm:p-5">
         {/* Ambient frame grid */}
         <div className="pointer-events-none absolute inset-0 opacity-60 grid-pattern" />
 
         <div
-          className={`preview-frame relative z-10 h-full overflow-hidden border border-white/[0.08] bg-black transition-[width,border-radius] duration-500 ease-[cubic-bezier(0.25,0.4,0.25,1)] ${
+          className={`preview-frame relative z-10 h-full overflow-hidden border border-slate-200 bg-white transition-[width,border-radius] duration-500 ease-[cubic-bezier(0.25,0.4,0.25,1)] ${
             device === "mobile"
-              ? "w-[375px] max-w-full rounded-[26px] shadow-[0_0_50px_rgba(52,211,153,0.10),0_30px_90px_-30px_rgba(0,0,0,0.9)]"
-              : "w-full rounded-xl shadow-[0_30px_90px_-30px_rgba(0,0,0,0.9)]"
+              ? "w-[375px] max-w-full rounded-[26px] shadow-[0_0_50px_rgba(16,185,129,0.12),0_30px_90px_-30px_rgba(15,23,42,0.35)]"
+              : "w-full rounded-xl shadow-[0_30px_90px_-30px_rgba(15,23,42,0.35)]"
           }`}
         >
           {/* Live iframe — only mounted when embedding is permitted and unblocked */}
@@ -587,7 +587,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
             {waiting && (
               <motion.div
                 key="loading"
-                className="absolute inset-0 z-20 overflow-hidden bg-[#050505]"
+                className="absolute inset-0 z-20 overflow-hidden bg-slate-100"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -603,7 +603,7 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
                     className="object-cover object-top opacity-25"
                   />
                 )}
-                <div className="absolute inset-0 bg-[#050505]/80" />
+                <div className="absolute inset-0 bg-slate-100/80" />
                 <div className="relative flex h-full flex-col items-center justify-center gap-4">
                   <span className="preview-spinner h-11 w-11" />
                   <p className="text-center font-mono text-[10px] uppercase tracking-[0.22em] text-emerald/70 sm:text-[11px]">
@@ -633,20 +633,20 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
       </div>
 
       {/* ── Status Bar ── */}
-      <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] bg-[#0a0a0a] px-4 py-2 font-mono text-[10px]">
-        <span className="flex min-w-0 items-center gap-2 text-neutral-500">
+      <div className="flex items-center justify-between gap-3 border-t border-slate-200 bg-slate-50 px-4 py-2 font-mono text-[10px]">
+        <span className="flex min-w-0 items-center gap-2 text-slate-500">
           <span className="relative flex h-1.5 w-1.5 shrink-0">
             <span className="live-dot-ping-1" />
             <span className="live-dot-ping-2" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald" />
           </span>
           <span className="truncate">{project.title}</span>
-          <span className="hidden shrink-0 text-neutral-600 sm:inline">
+          <span className="hidden shrink-0 text-slate-400 sm:inline">
             · {hostname}
           </span>
         </span>
 
-        <span className="flex shrink-0 items-center gap-3 text-neutral-500">
+        <span className="flex shrink-0 items-center gap-3 text-slate-500">
           <button
             type="button"
             onClick={handleReload}
@@ -655,22 +655,22 @@ function PreviewBrowser({ project, onClose }: PreviewBrowserProps) {
             <RotateCw className="h-3 w-3" />
             Reload
           </button>
-          <span className="hidden text-neutral-600 sm:inline">
+          <span className="hidden text-slate-400 sm:inline">
             {device === "mobile" ? "375px viewport" : "100% viewport"}
           </span>
           {blocked ? (
-            <span className="flex items-center gap-1 text-amber-400/80">
+            <span className="flex items-center gap-1 text-amber-600">
               <ShieldCheck className="h-3 w-3" />
               PROTECTED
             </span>
           ) : isLoaded ? (
-            <span className="flex items-center gap-1 text-emerald/60">
+            <span className="flex items-center gap-1 text-emerald-600">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
               LIVE
             </span>
           ) : (
-            <span className="flex items-center gap-1 text-emerald/50">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald/70" />
+            <span className="flex items-center gap-1 text-emerald-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               CONNECTING
             </span>
           )}

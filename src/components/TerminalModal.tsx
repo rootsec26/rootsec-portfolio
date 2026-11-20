@@ -191,34 +191,6 @@ function renderContact(): TerminalLine[] {
   ];
 }
 
-/* ─── Typing Animation Hook ─── */
-
-function useTypingAnimation(text: string, speed = 18): string {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    setDisplayed("");
-    setDone(false);
-    if (!text) {
-      setDone(true);
-      return;
-    }
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setDone(true);
-      }
-    }, speed);
-    return () => clearInterval(interval);
-  }, [text, speed]);
-
-  return displayed;
-}
-
 /* ─── Boot Sequence Lines ─── */
 
 const BOOT_LINES = [
@@ -239,7 +211,7 @@ interface TerminalModalProps {
   onClose: () => void;
 }
 
-export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
+function TerminalModalSession({ onClose }: { onClose: () => void }) {
   const [lines, setLines] = useState<TerminalLine[]>([]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
@@ -254,12 +226,11 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
 
   const nextId = useCallback(() => ++lineIdCounter.current, []);
 
-  /* ── Focus input on open ── */
+  /* ── Focus input on mount ── */
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [isOpen]);
+    const timer = setTimeout(() => inputRef.current?.focus(), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   /* ── Auto-scroll ── */
   useEffect(() => {
@@ -270,14 +241,6 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
 
   /* ── Boot sequence ── */
   useEffect(() => {
-    if (!isOpen) return;
-    setLines([]);
-    setInput("");
-    setHistory([]);
-    setHistoryIndex(-1);
-    setBoot(false);
-    lineIdCounter.current = 0;
-
     let i = 0;
     const timer = setInterval(() => {
       if (i < BOOT_LINES.length) {
@@ -289,7 +252,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       }
     }, 80);
     return () => clearInterval(timer);
-  }, [isOpen, nextId]);
+  }, [nextId]);
 
   /* ── Submit command ── */
   const submitCommand = useCallback(
@@ -430,9 +393,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
   );
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
+    <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -441,7 +402,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-[#050505]/95 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/30 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -544,8 +505,14 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
               <span>UTF-8 · LF</span>
             </div>
           </motion.div>
-        </motion.div>
-      )}
+    </motion.div>
+  );
+}
+
+export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
+  return (
+    <AnimatePresence>
+      {isOpen && <TerminalModalSession onClose={onClose} />}
     </AnimatePresence>
   );
 }

@@ -5,12 +5,15 @@ import LocalStats from "@/components/LocalStats";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "rootsec — Frontend Developer & Web Architect",
-  description: "Crafting ultra-fast, responsive web applications with Next.js, TypeScript, and Supabase.",
-  keywords: "rootsec, frontend developer, next.js, react, typescript, portfolio, web architect",
+  title: "Ashraf Omar — AI Student & Full-Stack Developer",
+  description:
+    "Ashraf Omar — AI Student & Full-Stack Developer at the Faculty of Computers & Artificial Intelligence, Assiut National University. Building modern Next.js applications and AI integrations.",
+  keywords:
+    "Ashraf Omar, rootsec, full-stack developer, next.js, react, typescript, AI student, Assiut National University, portfolio",
   openGraph: {
-    title: "rootsec — Frontend Developer & Web Architect",
-    description: "Crafting ultra-fast, responsive web applications with Next.js, TypeScript, and Supabase.",
+    title: "Ashraf Omar — AI Student & Full-Stack Developer",
+    description:
+      "Building modern, full-stack web platforms, Next.js applications, and AI integrations.",
     type: "website",
   },
 };
@@ -26,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-void text-text-primary min-h-screen font-[Inter,sans-serif] antialiased">
+      <body className="bg-white text-text-primary min-h-screen font-[Inter,sans-serif] antialiased">
         {children}
         <Analytics />
         <LocalStats />
