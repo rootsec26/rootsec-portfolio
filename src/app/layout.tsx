@@ -5,16 +5,40 @@ import LocalStats from "@/components/LocalStats";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000"
+  ),
   title: "Ashraf Omar — AI Student & Full-Stack Developer",
   description:
     "Ashraf Omar — AI Student & Full-Stack Developer at the Faculty of Computers & Artificial Intelligence, Assiut National University. Building modern Next.js applications and AI integrations.",
   keywords:
     "Ashraf Omar, rootsec, full-stack developer, next.js, react, typescript, AI student, Assiut National University, portfolio",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+  },
   openGraph: {
     title: "Ashraf Omar — AI Student & Full-Stack Developer",
     description:
       "Building modern, full-stack web platforms, Next.js applications, and AI integrations.",
     type: "website",
+    images: [
+      {
+        url: "/images/ashraf-1.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ashraf Omar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/ashraf-1.jpeg"],
   },
 };
 
